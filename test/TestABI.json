@@ -175,6 +175,132 @@
       "name": "inputIntArr",
       "outputs": [],
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int[3]",
+          "type": "int[3]"
+        }
+      ],
+      "name": "inputIntArr3",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int[][]",
+          "type": "int[][]"
+        }
+      ],
+      "name": "inputIntArrIntArr",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int[][2]",
+          "type": "int[][2]"
+        }
+      ],
+      "name": "inputIntArrIntArr2",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int[2][]",
+          "type": "int[2][]"
+        }
+      ],
+      "name": "inputIntArr2IntArr",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int[2][2]",
+          "type": "int[2][2]"
+        }
+      ],
+      "name": "inputIntArr2IntArr2",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int[2][2]",
+          "type": "int[2][2]"
+        }
+      ],
+      "name": "inputIntArr2IntArr2",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "name": "i",
+              "type": "int"
+            },
+            {
+              "name": "u",
+              "type": "uint"
+            },
+            {
+              "name": "b",
+              "type": "bytes1"
+            }
+          ],
+          "name": "Thing",
+          "type": "tuple"
+        }
+      ],
+      "name": "inputStructThing",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "name": "i",
+              "type": "int"
+            },
+            {
+              "components": [
+                {
+                  "name": "i",
+                  "type": "int"
+                },
+                {
+                  "name": "u",
+                  "type": "uint"
+                },
+                {
+                  "name": "b",
+                  "type": "bytes1"
+                }
+              ],
+              "name": "t",
+              "type": "tuple"
+            }
+          ],
+          "name": "Nested",
+          "type": "tuple"
+        }
+      ],
+      "name": "inputStructNested",
+      "outputs": [],
+      "type": "function"
     }
   ]
 }

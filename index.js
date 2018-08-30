@@ -27,6 +27,8 @@ const validators = {
     // tuple types
     if (type === 'tuple') {
       const isArr = Array.isArray(val)
+      const numItems = isArr ? val.length : Object.keys(val).length
+      if (numItems !== input.components.length) return false
       return input.components.every((c, i) => {
         const v = isArr ? val[i] : val[c.name]
         return this.isValid(v, c)
@@ -64,8 +66,7 @@ const validators = {
       return jtype === 'string'
     }
 
-    // default check against js types
-    return jtype === type
+    return false
   },
 
   isAddress(val) {
