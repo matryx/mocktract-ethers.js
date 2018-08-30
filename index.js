@@ -2,7 +2,7 @@ const BN = require('bn.js')
 
 const regEx = {
   address: /^0x[0-9a-fA-F]{40}$/,
-  arr: /^(.+?)\[([0-9]+)\](.+)?$/,
+  arr: /^(.+?)\[([0-9]+)?\](.+)?$/,
   bytes: /^bytes([0-9]+)?$/,
   decOrHex: /^([0-9]+|0x[0-9a-fA-F]+)$/,
   num: /^(u)?int([0-9]+)?$/
@@ -18,10 +18,10 @@ const validators = {
     match = type.match(regEx.arr)
     if (match) {
       type = match[1] + (match[3] || '')
-      const len = +match[2]
+      const len = +match[2] || 0
       if (!Array.isArray(val)) return false
       if (len && val.length !== +len) return false
-      return val.every(a => this.isValid(a, type))
+      return val.every(a => this.isValid(a, { type }))
     }
 
     // tuple types
@@ -29,7 +29,7 @@ const validators = {
       const isArr = Array.isArray(val)
       return input.components.every((c, i) => {
         const v = isArr ? val[i] : val[c.name]
-        return this.isValid(v, c.type)
+        return this.isValid(v, c)
       })
     }
 
