@@ -1,0 +1,180 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "name": "arg_int",
+          "type": "int"
+        }
+      ],
+      "name": "inputInt",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int8",
+          "type": "int8"
+        }
+      ],
+      "name": "inputInt8",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int32",
+          "type": "int32"
+        }
+      ],
+      "name": "inputInt32",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int256",
+          "type": "int256"
+        }
+      ],
+      "name": "inputInt256",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_uint",
+          "type": "uint"
+        }
+      ],
+      "name": "inputUint",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_uint8",
+          "type": "uint8"
+        }
+      ],
+      "name": "inputUint8",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_uint32",
+          "type": "uint32"
+        }
+      ],
+      "name": "inputUint32",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_uint256",
+          "type": "uint256"
+        }
+      ],
+      "name": "inputUint256",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_bytes",
+          "type": "bytes"
+        }
+      ],
+      "name": "inputBytes",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_bytes1",
+          "type": "bytes1"
+        }
+      ],
+      "name": "inputBytes1",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_bytes4",
+          "type": "bytes4"
+        }
+      ],
+      "name": "inputBytes4",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_bytes32",
+          "type": "bytes32"
+        }
+      ],
+      "name": "inputBytes32",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_string",
+          "type": "string"
+        }
+      ],
+      "name": "inputString",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_address",
+          "type": "address"
+        }
+      ],
+      "name": "inputAddress",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_bool",
+          "type": "bool"
+        }
+      ],
+      "name": "inputBool",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "arg_int[]",
+          "type": "int[]"
+        }
+      ],
+      "name": "inputIntArr",
+      "outputs": [],
+      "type": "function"
+    }
+  ]
+}
