@@ -116,12 +116,14 @@ function Mocktract(address, abi) {
     bytesN: n => '0x' + '0'.repeat(n)
   }
 
-  this.mockReturnType = (type, value) => {
+  this.mockReturnType = function(type, value) {
     mockReturnType[type] = value
+    return this
   }
-  this.mockReturnTypeOnce = (type, value) => {
+  this.mockReturnTypeOnce = function(type, value) {
     if (!mockReturnTypes[type]) mockReturnTypes[type] = []
     mockReturnTypes[type].push(value)
+    return this
   }
 
   const fake = output => {
@@ -147,7 +149,7 @@ function Mocktract(address, abi) {
     }
 
     if (mockReturnTypes[type] && mockReturnTypes[type].length) {
-      return mockReturnTypes[type].pop()
+      return mockReturnTypes[type].shift()
     } else if (mockReturnType[type]) {
       return mockReturnType[type]
     }
@@ -200,7 +202,7 @@ function Mocktract(address, abi) {
         }
 
         if (mockReturnValues.length) {
-          return mockReturnValues.pop()
+          return mockReturnValues.shift()
         } else if (mockReturnValue !== undefined) {
           return mockReturnValue
         } else {
@@ -209,11 +211,13 @@ function Mocktract(address, abi) {
         }
       }
 
-      fn.mockReturnValue = val => {
+      fn.mockReturnValue = function(val) {
         mockReturnValue = val
+        return this
       }
-      fn.mockReturnValueOnce = val => {
+      fn.mockReturnValueOnce = function(val) {
         mockReturnValues.push(val)
+        return this
       }
 
       this[item.name] = fn
