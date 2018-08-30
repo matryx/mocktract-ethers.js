@@ -159,7 +159,7 @@ function Mocktract(address, abi) {
       return fake({ type: 'number' })
     }
 
-    match = type.match(bytes32)
+    match = type.match(regEx.bytes)
     if (match) {
       const size = match[1]
       return fakeVal.bytesN(size)
