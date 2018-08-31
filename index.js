@@ -98,6 +98,91 @@ const validators = {
   }
 }
 
+const mockFunction = (item, fake) => {
+  let mockReturnValue
+  let mockReturnValues = []
+
+  let mock = {
+    calls: [],
+    results: []
+  }
+
+  let fn = async function() {
+    const args = [...arguments]
+    mock.calls.push(args)
+
+    try {
+      // validate num arguments
+      const num = args.length
+      const expectedNum = item.inputs.length
+      if (num !== expectedNum) {
+        const expectedMsg = `Expected ${expectedNum} got ${num}`
+        throw `${item.name}: Invalid number of arguments. ${expectedMsg}`
+      }
+
+      // validate arguments
+      for (const i in args) {
+        const arg = args[i]
+        const input = item.inputs[i]
+        const { name, type } = input
+
+        if (!validators.isValid(arg, input)) {
+          throw `${item.name}: Argument ${i} (${name}) expects ${type}`
+        }
+      }
+
+      let output
+      if (mockReturnValues.length) {
+        output = mockReturnValues.shift()
+      } else if (mockReturnValue !== undefined) {
+        output = mockReturnValue
+      } else {
+        let outputs = item.outputs.map(fake)
+        output = outputs.length === 1 ? outputs[0] : outputs
+      }
+
+      mock.results.push({
+        isThrow: false,
+        value: output
+      })
+
+      return output
+    } catch (err) {
+      mock.results.push({
+        isThrow: true,
+        value: err
+      })
+      throw err
+    }
+  }
+
+  fn.mock = mock
+
+  fn.mockReturnValue = function(val) {
+    mockReturnValue = val
+    return this
+  }
+
+  fn.mockReturnValueOnce = function(val) {
+    mockReturnValues.push(val)
+    return this
+  }
+
+  fn.mockClear = function() {
+    mock.calls = []
+    mock.results = []
+    return this
+  }
+
+  fn.mockReset = function() {
+    mockReturnValue = undefined
+    mockReturnValues = []
+    return this
+  }
+
+  return fn
+}
+
 function Mocktract(address, abi) {
   this.address = address
   this.estimate = {}
@@ -113,22 +198,43 @@ function Mocktract(address, abi) {
     bool: true,
     // number will catch int, uint8, int256... etc
     number: new BN(1),
-    bytesN: n => '0x' + '0'.repeat(n)
+    bytesN: n => '0x' + '0'.repeat(n * 2)
   }
 
   this.mockReturnType = function(type, value) {
     mockReturnType[type] = value
     return this
   }
+
   this.mockReturnTypeOnce = function(type, value) {
     if (!mockReturnTypes[type]) mockReturnTypes[type] = []
     mockReturnTypes[type].push(value)
     return this
   }
 
+  this.mockReset = function() {
+    mockReturnType = {}
+    mockReturnTypes = {}
+    return this
+  }
+
+  this.mockResetAll = function() {
+    this.mockReset()
+    for (const fn of Object.values(this.functions)) {
+      fn.mockReset()
+    }
+    return this
+  }
+
   const fake = output => {
     let { type } = output
     let match
+
+    if (mockReturnTypes[type] && mockReturnTypes[type].length) {
+      return mockReturnTypes[type].shift()
+    } else if (mockReturnType[type] !== undefined) {
+      return mockReturnType[type]
+    }
 
     // ethers.js tuples are both arrays and object
     if (type === 'tuple') {
@@ -144,14 +250,8 @@ function Mocktract(address, abi) {
     match = type.match(regEx.arr)
     if (match) {
       type = match[1] + (match[3] || '')
-      const len = +match[2]
-      return new Array(len).fill(fake({ type }))
-    }
-
-    if (mockReturnTypes[type] && mockReturnTypes[type].length) {
-      return mockReturnTypes[type].shift()
-    } else if (mockReturnType[type]) {
-      return mockReturnType[type]
+      const len = +match[2] || 1
+      return [...Array(len)].map(() => fake({ type }))
     }
 
     match = type.match(regEx.num)
@@ -161,7 +261,7 @@ function Mocktract(address, abi) {
 
     match = type.match(regEx.bytes)
     if (match) {
-      const size = match[1]
+      const size = match[1] || 1
       return fakeVal.bytesN(size)
     }
 
@@ -172,53 +272,7 @@ function Mocktract(address, abi) {
     if (!item.name) return
 
     if (item.type === 'function') {
-      let mockReturnValue
-      let mockReturnValues = []
-
-      let fn = function() {
-        const args = [...arguments]
-
-        // validate num arguments
-        const num = args.length
-        const num_expect = item.inputs.length
-        if (num !== num_expect) {
-          const expected = `Expected ${num_expect} got ${num}`
-          throw new Error(
-            `${item.name}: Invalid number of arguments. ${expected}`
-          )
-        }
-
-        // validate arguments
-        for (const i in args) {
-          const arg = args[i]
-          const input = item.inputs[i]
-          const { name, type } = input
-
-          if (!validators.isValid(arg, input)) {
-            throw new Error(
-              `${item.name}: Argument ${i} (${name}) expects ${type}`
-            )
-          }
-        }
-
-        if (mockReturnValues.length) {
-          return mockReturnValues.shift()
-        } else if (mockReturnValue !== undefined) {
-          return mockReturnValue
-        } else {
-          let output = item.outputs.map(fake)
-          return output.length === 1 ? output[0] : output
-        }
-      }
-
-      fn.mockReturnValue = function(val) {
-        mockReturnValue = val
-        return this
-      }
-      fn.mockReturnValueOnce = function(val) {
-        mockReturnValues.push(val)
-        return this
-      }
+      const fn = mockFunction(item, fake)
 
       this[item.name] = fn
       this.functions[item.name] = fn

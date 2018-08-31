@@ -45,35 +45,43 @@ const validArrNested = arrayify(validNested)
 const invalidArrNested = arrayify(invalidNested)
 
 describe('input struct tests', () => {
-  test('struct Thing obj\tvalid', () => {
-    expect(M.inputStructThing(validThing)).toBeTruthy()
+  test('struct Thing obj\tvalid', async done => {
+    await expect(M.inputStructThing(validThing)).resolves.toBeTruthy()
+    done()
   })
 
-  test('struct Thing arr\tvalid', () => {
-    expect(M.inputStructThing(validArrThing)).toBeTruthy()
+  test('struct Thing arr\tvalid', async done => {
+    await expect(M.inputStructThing(validArrThing)).resolves.toBeTruthy()
+    done()
   })
 
-  test('struct Thing obj\tinvalid', () => {
-    expect(() => M.inputStructThing(invalidThing)).toThrow()
+  test('struct Thing obj\tinvalid', async done => {
+    await expect(M.inputStructThing(invalidThing)).rejects.toBeTruthy()
+    done()
   })
 
-  test('struct Thing arr\tinvalid', () => {
-    expect(() => M.inputStructThing(invalidArrThing)).toThrow()
+  test('struct Thing arr\tinvalid', async done => {
+    await expect(M.inputStructThing(invalidArrThing)).rejects.toBeTruthy()
+    done()
   })
 
-  test('struct Nested obj\tvalid', () => {
-    expect(M.inputStructNested(validNested)).toBeTruthy()
+  test('struct Nested obj\tvalid', async done => {
+    await expect(M.inputStructNested(validNested)).resolves.toBeTruthy()
+    done()
   })
 
-  test('struct Nested arr\tvalid', () => {
-    expect(M.inputStructNested(validArrNested)).toBeTruthy()
+  test('struct Nested arr\tvalid', async done => {
+    await expect(M.inputStructNested(validArrNested)).resolves.toBeTruthy()
+    done()
   })
 
-  test('struct Nested obj\tinvalid', () => {
-    expect(() => M.inputStructNested(invalidNested)).toThrow()
+  test('struct Nested obj\tinvalid', async done => {
+    await expect(M.inputStructNested(invalidNested)).rejects.toBeTruthy()
+    done()
   })
 
-  test('struct Nested arr\tinvalid', () => {
-    expect(() => M.inputStructNested(invalidArrNested)).toThrow()
+  test('struct Nested arr\tinvalid', async done => {
+    await expect(M.inputStructNested(invalidArrNested)).rejects.toBeTruthy()
+    done()
   })
 })

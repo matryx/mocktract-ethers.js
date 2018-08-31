@@ -1,17 +1,19 @@
 describe('input bool tests', () => {
-  test('bool\tvalid', () => {
-    expect(M.inputBool(true)).toBeTruthy()
-    expect(M.inputBool(false)).toBeTruthy()
-    expect(M.inputBool(0)).toBeTruthy()
-    expect(M.inputBool(1)).toBeTruthy()
-    expect(M.inputBool('0')).toBeTruthy()
-    expect(M.inputBool('1')).toBeTruthy()
+  test('bool\tvalid', async done => {
+    await expect(M.inputBool(true)).resolves.toBeTruthy()
+    await expect(M.inputBool(false)).resolves.toBeTruthy()
+    await expect(M.inputBool(0)).resolves.toBeTruthy()
+    await expect(M.inputBool(1)).resolves.toBeTruthy()
+    await expect(M.inputBool('0')).resolves.toBeTruthy()
+    await expect(M.inputBool('1')).resolves.toBeTruthy()
+    done()
   })
 
-  test('bool\tinvalid', () => {
-    expect(() => M.inputBool('not a bool')).toThrow()
-    expect(() => M.inputBool([])).toThrow()
-    expect(() => M.inputBool({})).toThrow()
-    expect(() => M.inputBool(2)).toThrow()
+  test('bool\tinvalid', async done => {
+    await expect(M.inputBool('not a bool')).rejects.toBeTruthy()
+    await expect(M.inputBool([])).rejects.toBeTruthy()
+    await expect(M.inputBool({})).rejects.toBeTruthy()
+    await expect(M.inputBool(2)).rejects.toBeTruthy()
+    done()
   })
 })

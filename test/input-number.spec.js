@@ -1,139 +1,159 @@
 const BN = require('bn.js')
 
 describe('input int tests', () => {
-  test('int\tvalid', () => {
-    expect(M.inputInt(1)).toBeTruthy()
-    expect(M.inputInt(-1)).toBeTruthy()
-    expect(M.inputInt('1')).toBeTruthy()
-    expect(M.inputInt('0x1')).toBeTruthy()
+  test('int\tvalid', async done => {
+    await expect(M.inputInt(1)).resolves.toBeTruthy()
+    await expect(M.inputInt(-1)).resolves.toBeTruthy()
+    await expect(M.inputInt('1')).resolves.toBeTruthy()
+    await expect(M.inputInt('0x1')).resolves.toBeTruthy()
+    done()
   })
 
-  test('int\tinvalid', () => {
-    expect(() => M.inputInt([])).toThrow()
-    expect(() => M.inputInt({})).toThrow()
-    expect(() => M.inputInt('not a number')).toThrow()
-    expect(() => M.inputInt('0xinvalid')).toThrow()
-    expect(() => M.inputInt('0 1 2 3')).toThrow()
+  test('int\tinvalid', async done => {
+    await expect(M.inputInt([])).rejects.toBeTruthy()
+    await expect(M.inputInt({})).rejects.toBeTruthy()
+    await expect(M.inputInt('not a number')).rejects.toBeTruthy()
+    await expect(M.inputInt('0xinvalid')).rejects.toBeTruthy()
+    await expect(M.inputInt('0 1 2 3')).rejects.toBeTruthy()
+    done()
   })
 
-  test('int\tvalid\tjust in bounds', () => {
+  test('int\tvalid\tjust in bounds', async done => {
     const maxInt = new BN(2).pow(new BN(128)).sub(new BN(1))
     const minInt = maxInt.mul(new BN(-1)).sub(new BN(1))
-    expect(M.inputInt(maxInt)).toBeTruthy()
-    expect(M.inputInt(minInt)).toBeTruthy()
+    await expect(M.inputInt(maxInt)).resolves.toBeTruthy()
+    await expect(M.inputInt(minInt)).resolves.toBeTruthy()
+    done()
   })
 
-  test('int\tinvalid\tout of bounds', () => {
+  test('int\tinvalid\tout of bounds', async done => {
     const maxInt = new BN(2).pow(new BN(128))
     const minInt = maxInt.mul(new BN(-1)).sub(new BN(1))
-    expect(() => M.inputInt(maxInt)).toThrow()
-    expect(() => M.inputInt(minInt)).toThrow()
+    await expect(M.inputInt(maxInt)).rejects.toBeTruthy()
+    await expect(M.inputInt(minInt)).rejects.toBeTruthy()
+    done()
   })
 
-  test('int8\tvalid\tjust in bounds', () => {
+  test('int8\tvalid\tjust in bounds', async done => {
     const maxInt = new BN(2).pow(new BN(4)).sub(new BN(1))
     const minInt = maxInt.mul(new BN(-1)).sub(new BN(1))
-    expect(M.inputInt8(maxInt)).toBeTruthy()
-    expect(M.inputInt8(minInt)).toBeTruthy()
+    await expect(M.inputInt8(maxInt)).resolves.toBeTruthy()
+    await expect(M.inputInt8(minInt)).resolves.toBeTruthy()
+    done()
   })
 
-  test('int8\tinvalid\tout of bounds', () => {
+  test('int8\tinvalid\tout of bounds', async done => {
     const maxInt = new BN(2).pow(new BN(4))
     const minInt = maxInt.mul(new BN(-1)).sub(new BN(1))
-    expect(() => M.inputInt8(maxInt)).toThrow()
-    expect(() => M.inputInt8(minInt)).toThrow()
+    await expect(M.inputInt8(maxInt)).rejects.toBeTruthy()
+    await expect(M.inputInt8(minInt)).rejects.toBeTruthy()
+    done()
   })
 
-  test('int32\tvalid\tjust in bounds', () => {
+  test('int32\tvalid\tjust in bounds', async done => {
     const maxInt = new BN(2).pow(new BN(16)).sub(new BN(1))
     const minInt = maxInt.mul(new BN(-1)).sub(new BN(1))
-    expect(M.inputInt32(maxInt)).toBeTruthy()
-    expect(M.inputInt32(minInt)).toBeTruthy()
+    await expect(M.inputInt32(maxInt)).resolves.toBeTruthy()
+    await expect(M.inputInt32(minInt)).resolves.toBeTruthy()
+    done()
   })
 
-  test('int32\tinvalid\tout of bounds', () => {
+  test('int32\tinvalid\tout of bounds', async done => {
     const maxInt = new BN(2).pow(new BN(16))
     const minInt = maxInt.mul(new BN(-1)).sub(new BN(1))
-    expect(() => M.inputInt32(maxInt)).toThrow()
-    expect(() => M.inputInt32(minInt)).toThrow()
+    await expect(M.inputInt32(maxInt)).rejects.toBeTruthy()
+    await expect(M.inputInt32(minInt)).rejects.toBeTruthy()
+    done()
   })
 
-  test('int256\tvalid\tjust in bounds', () => {
+  test('int256\tvalid\tjust in bounds', async done => {
     const maxInt = new BN(2).pow(new BN(128)).sub(new BN(1))
     const minInt = maxInt.mul(new BN(-1)).sub(new BN(1))
-    expect(M.inputInt256(maxInt)).toBeTruthy()
-    expect(M.inputInt256(minInt)).toBeTruthy()
+    await expect(M.inputInt256(maxInt)).resolves.toBeTruthy()
+    await expect(M.inputInt256(minInt)).resolves.toBeTruthy()
+    done()
   })
 
-  test('int256\tinvalid\tout of bounds', () => {
+  test('int256\tinvalid\tout of bounds', async done => {
     const maxInt = new BN(2).pow(new BN(128))
     const minInt = maxInt.mul(new BN(-1)).sub(new BN(1))
-    expect(() => M.inputInt256(maxInt)).toThrow()
-    expect(() => M.inputInt256(minInt)).toThrow()
+    await expect(M.inputInt256(maxInt)).rejects.toBeTruthy()
+    await expect(M.inputInt256(minInt)).rejects.toBeTruthy()
+    done()
   })
 })
 
 describe('input uint tests', () => {
-  test('uint\tvalid', () => {
-    expect(M.inputUint(1)).toBeTruthy()
-    expect(M.inputUint(0)).toBeTruthy()
-    expect(M.inputInt('1')).toBeTruthy()
-    expect(M.inputInt('0x0')).toBeTruthy()
+  test('uint\tvalid', async done => {
+    await expect(M.inputUint(1)).resolves.toBeTruthy()
+    await expect(M.inputUint(0)).resolves.toBeTruthy()
+    await expect(M.inputInt('1')).resolves.toBeTruthy()
+    await expect(M.inputInt('0x0')).resolves.toBeTruthy()
+    done()
   })
 
-  test('uint\tinvalid', () => {
-    expect(() => M.inputUint([])).toThrow()
-    expect(() => M.inputUint({})).toThrow()
-    expect(() => M.inputUint('not a number')).toThrow()
-    expect(() => M.inputUint('0xinvalid')).toThrow()
-    expect(() => M.inputUint('0 1 2 3')).toThrow()
+  test('uint\tinvalid', async done => {
+    await expect(M.inputUint([])).rejects.toBeTruthy()
+    await expect(M.inputUint({})).rejects.toBeTruthy()
+    await expect(M.inputUint('not a number')).rejects.toBeTruthy()
+    await expect(M.inputUint('0xinvalid')).rejects.toBeTruthy()
+    await expect(M.inputUint('0 1 2 3')).rejects.toBeTruthy()
+    done()
   })
 
-  test('uint\tvalid\tjust in bounds', () => {
+  test('uint\tvalid\tjust in bounds', async done => {
     const maxInt = new BN(2).pow(new BN(256)).sub(new BN(1))
-    expect(M.inputUint(maxInt)).toBeTruthy()
-    expect(M.inputUint(0)).toBeTruthy()
+    await expect(M.inputUint(maxInt)).resolves.toBeTruthy()
+    await expect(M.inputUint(0)).resolves.toBeTruthy()
+    done()
   })
 
-  test('uint\tinvalid\tout of bounds', () => {
+  test('uint\tinvalid\tout of bounds', async done => {
     const maxInt = new BN(2).pow(new BN(256))
-    expect(() => M.inputUint(maxInt)).toThrow()
-    expect(() => M.inputUint(-1)).toThrow()
+    await expect(M.inputUint(maxInt)).rejects.toBeTruthy()
+    await expect(M.inputUint(-1)).rejects.toBeTruthy()
+    done()
   })
 
-  test('uint8\tvalid\tjust in bounds', () => {
+  test('uint8\tvalid\tjust in bounds', async done => {
     const maxInt = new BN(2).pow(new BN(8)).sub(new BN(1))
-    expect(M.inputUint8(maxInt)).toBeTruthy()
-    expect(M.inputUint8(0)).toBeTruthy()
+    await expect(M.inputUint8(maxInt)).resolves.toBeTruthy()
+    await expect(M.inputUint8(0)).resolves.toBeTruthy()
+    done()
   })
 
-  test('uint8\tinvalid\tout of bounds', () => {
+  test('uint8\tinvalid\tout of bounds', async done => {
     const maxInt = new BN(2).pow(new BN(8))
-    expect(() => M.inputUint8(maxInt)).toThrow()
-    expect(() => M.inputUint8(-1)).toThrow()
+    await expect(M.inputUint8(maxInt)).rejects.toBeTruthy()
+    await expect(M.inputUint8(-1)).rejects.toBeTruthy()
+    done()
   })
 
-  test('uint32\tvalid\tjust in bounds', () => {
+  test('uint32\tvalid\tjust in bounds', async done => {
     const maxInt = new BN(2).pow(new BN(32)).sub(new BN(1))
-    expect(M.inputUint32(maxInt)).toBeTruthy()
-    expect(M.inputUint32(0)).toBeTruthy()
+    await expect(M.inputUint32(maxInt)).resolves.toBeTruthy()
+    await expect(M.inputUint32(0)).resolves.toBeTruthy()
+    done()
   })
 
-  test('uint32\tinvalid\tout of bounds', () => {
+  test('uint32\tinvalid\tout of bounds', async done => {
     const maxInt = new BN(2).pow(new BN(32))
-    expect(() => M.inputUint32(maxInt)).toThrow()
-    expect(() => M.inputUint32(-1)).toThrow()
+    await expect(M.inputUint32(maxInt)).rejects.toBeTruthy()
+    await expect(M.inputUint32(-1)).rejects.toBeTruthy()
+    done()
   })
 
-  test('uint256\tvalid\tjust in bounds', () => {
+  test('uint256\tvalid\tjust in bounds', async done => {
     const maxInt = new BN(2).pow(new BN(256)).sub(new BN(1))
-    expect(M.inputUint256(maxInt)).toBeTruthy()
-    expect(M.inputUint256(0)).toBeTruthy()
+    await expect(M.inputUint256(maxInt)).resolves.toBeTruthy()
+    await expect(M.inputUint256(0)).resolves.toBeTruthy()
+    done()
   })
 
-  test('uint256\tinvalid\tout of bounds', () => {
+  test('uint256\tinvalid\tout of bounds', async done => {
     const maxInt = new BN(2).pow(new BN(256))
-    expect(() => M.inputUint256(maxInt)).toThrow()
-    expect(() => M.inputUint256(-1)).toThrow()
+    await expect(M.inputUint256(maxInt)).rejects.toBeTruthy()
+    await expect(M.inputUint256(-1)).rejects.toBeTruthy()
+    done()
   })
 })
