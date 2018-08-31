@@ -1,7 +1,7 @@
 {
   "abi": [
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_address",
@@ -13,7 +13,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_bool",
@@ -25,7 +25,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_bytes",
@@ -37,7 +37,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_bytes1",
@@ -49,7 +49,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_bytes4",
@@ -61,7 +61,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_bytes32",
@@ -73,7 +73,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int",
@@ -85,7 +85,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int8",
@@ -97,7 +97,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int32",
@@ -109,7 +109,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int256",
@@ -121,7 +121,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_string",
@@ -133,7 +133,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_uint",
@@ -145,7 +145,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_uint8",
@@ -157,7 +157,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_uint32",
@@ -169,7 +169,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_uint256",
@@ -181,7 +181,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int[]",
@@ -193,7 +193,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int[3]",
@@ -205,7 +205,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int[][]",
@@ -217,7 +217,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int[][2]",
@@ -229,7 +229,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int[2][]",
@@ -241,7 +241,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int[2][2]",
@@ -253,7 +253,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "name": "in_int[2][2]",
@@ -265,7 +265,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "components": [
@@ -291,7 +291,7 @@
       "type": "function"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
           "components": [
@@ -502,6 +502,104 @@
         {
           "name": "out_uint256",
           "type": "uint256"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputIntArr",
+      "outputs": [
+        {
+          "name": "out_int[]",
+          "type": "int[]"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputIntArr2",
+      "outputs": [
+        {
+          "name": "out_int[2]",
+          "type": "int[2]"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputIntArr2IntArr2",
+      "outputs": [
+        {
+          "name": "out_int[2][2]",
+          "type": "int[2][2]"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "outputStructThing",
+      "outputs": [
+        {
+          "components": [
+            {
+              "name": "i",
+              "type": "int"
+            },
+            {
+              "name": "u",
+              "type": "uint"
+            },
+            {
+              "name": "b",
+              "type": "bytes1"
+            }
+          ],
+          "name": "Thing",
+          "type": "tuple"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "outputStructNested",
+      "outputs": [
+        {
+          "components": [
+            {
+              "name": "i",
+              "type": "int"
+            },
+            {
+              "components": [
+                {
+                  "name": "i",
+                  "type": "int"
+                },
+                {
+                  "name": "u",
+                  "type": "uint"
+                },
+                {
+                  "name": "b",
+                  "type": "bytes1"
+                }
+              ],
+              "name": "t",
+              "type": "tuple"
+            }
+          ],
+          "name": "Nested",
+          "type": "tuple"
         }
       ],
       "type": "function"
