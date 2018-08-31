@@ -1,152 +1,10 @@
 {
   "abi": [
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "arg_int",
-          "type": "int"
-        }
-      ],
-      "name": "inputInt",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_int8",
-          "type": "int8"
-        }
-      ],
-      "name": "inputInt8",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_int32",
-          "type": "int32"
-        }
-      ],
-      "name": "inputInt32",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_int256",
-          "type": "int256"
-        }
-      ],
-      "name": "inputInt256",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_uint",
-          "type": "uint"
-        }
-      ],
-      "name": "inputUint",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_uint8",
-          "type": "uint8"
-        }
-      ],
-      "name": "inputUint8",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_uint32",
-          "type": "uint32"
-        }
-      ],
-      "name": "inputUint32",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_uint256",
-          "type": "uint256"
-        }
-      ],
-      "name": "inputUint256",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_bytes",
-          "type": "bytes"
-        }
-      ],
-      "name": "inputBytes",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_bytes1",
-          "type": "bytes1"
-        }
-      ],
-      "name": "inputBytes1",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_bytes4",
-          "type": "bytes4"
-        }
-      ],
-      "name": "inputBytes4",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_bytes32",
-          "type": "bytes32"
-        }
-      ],
-      "name": "inputBytes32",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_string",
-          "type": "string"
-        }
-      ],
-      "name": "inputString",
-      "outputs": [],
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "arg_address",
+          "name": "in_address",
           "type": "address"
         }
       ],
@@ -155,9 +13,10 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "arg_bool",
+          "name": "in_bool",
           "type": "bool"
         }
       ],
@@ -166,9 +25,166 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "arg_int[]",
+          "name": "in_bytes",
+          "type": "bytes"
+        }
+      ],
+      "name": "inputBytes",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_bytes1",
+          "type": "bytes1"
+        }
+      ],
+      "name": "inputBytes1",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_bytes4",
+          "type": "bytes4"
+        }
+      ],
+      "name": "inputBytes4",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_bytes32",
+          "type": "bytes32"
+        }
+      ],
+      "name": "inputBytes32",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_int",
+          "type": "int"
+        }
+      ],
+      "name": "inputInt",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_int8",
+          "type": "int8"
+        }
+      ],
+      "name": "inputInt8",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_int32",
+          "type": "int32"
+        }
+      ],
+      "name": "inputInt32",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_int256",
+          "type": "int256"
+        }
+      ],
+      "name": "inputInt256",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_string",
+          "type": "string"
+        }
+      ],
+      "name": "inputString",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_uint",
+          "type": "uint"
+        }
+      ],
+      "name": "inputUint",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_uint8",
+          "type": "uint8"
+        }
+      ],
+      "name": "inputUint8",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_uint32",
+          "type": "uint32"
+        }
+      ],
+      "name": "inputUint32",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_uint256",
+          "type": "uint256"
+        }
+      ],
+      "name": "inputUint256",
+      "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "in_int[]",
           "type": "int[]"
         }
       ],
@@ -177,9 +193,10 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "arg_int[3]",
+          "name": "in_int[3]",
           "type": "int[3]"
         }
       ],
@@ -188,9 +205,10 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "arg_int[][]",
+          "name": "in_int[][]",
           "type": "int[][]"
         }
       ],
@@ -199,9 +217,10 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "arg_int[][2]",
+          "name": "in_int[][2]",
           "type": "int[][2]"
         }
       ],
@@ -210,9 +229,10 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "arg_int[2][]",
+          "name": "in_int[2][]",
           "type": "int[2][]"
         }
       ],
@@ -221,9 +241,10 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "arg_int[2][2]",
+          "name": "in_int[2][2]",
           "type": "int[2][2]"
         }
       ],
@@ -232,9 +253,10 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
-          "name": "arg_int[2][2]",
+          "name": "in_int[2][2]",
           "type": "int[2][2]"
         }
       ],
@@ -243,6 +265,7 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
           "components": [
@@ -268,6 +291,7 @@
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
           "components": [
@@ -300,6 +324,186 @@
       ],
       "name": "inputStructNested",
       "outputs": [],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputAddress",
+      "outputs": [
+        {
+          "name": "out_address",
+          "type": "address"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputBool",
+      "outputs": [
+        {
+          "name": "out_bool",
+          "type": "bool"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputBytes",
+      "outputs": [
+        {
+          "name": "out_bytes",
+          "type": "bytes"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputBytes1",
+      "outputs": [
+        {
+          "name": "out_bytes1",
+          "type": "bytes1"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputBytes4",
+      "outputs": [
+        {
+          "name": "out_bytes4",
+          "type": "bytes4"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputBytes32",
+      "outputs": [
+        {
+          "name": "out_bytes32",
+          "type": "bytes32"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputInt",
+      "outputs": [
+        {
+          "name": "out_int",
+          "type": "int"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputInt8",
+      "outputs": [
+        {
+          "name": "out_int8",
+          "type": "int8"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputInt32",
+      "outputs": [
+        {
+          "name": "out_int32",
+          "type": "int32"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputInt256",
+      "outputs": [
+        {
+          "name": "out_int256",
+          "type": "int256"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputString",
+      "outputs": [
+        {
+          "name": "out_string",
+          "type": "string"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputUint",
+      "outputs": [
+        {
+          "name": "out_uint",
+          "type": "uint"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputUint8",
+      "outputs": [
+        {
+          "name": "out_uint8",
+          "type": "uint8"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputUint32",
+      "outputs": [
+        {
+          "name": "out_uint32",
+          "type": "uint32"
+        }
+      ],
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "outputUint256",
+      "outputs": [
+        {
+          "name": "out_uint256",
+          "type": "uint256"
+        }
+      ],
       "type": "function"
     }
   ]
