@@ -1,5 +1,20 @@
 const BN = require('bn.js')
 
+const hexN = n => '0x' + '0'.repeat(n)
+
+const receipt = {
+  transactionHash: hexN(64),
+  transactionIndex: 0,
+  blockHash: hexN(64),
+  blockNumber: 0,
+  gasUsed: 1,
+  cumulativeGasUsed: 1,
+  contractAddress: hexN(40),
+  logs: [],
+  status: '0x01',
+  logsBloom: '0x0'
+}
+
 const regEx = {
   address: /^0x[0-9a-fA-F]{40}$/,
   arr: /^(.+?)\[([0-9]+)?\](.+)?$/,
@@ -132,7 +147,9 @@ const mockFunction = (item, fake) => {
       }
 
       let output
-      if (mockReturnValues.length) {
+      if (item.constant === false) {
+        output = receipt
+      } else if (mockReturnValues.length) {
         output = mockReturnValues.shift()
       } else if (mockReturnValue !== undefined) {
         output = mockReturnValue
@@ -193,12 +210,12 @@ function Mocktract(address, abi) {
   let mockReturnTypes = {}
 
   let fakeVal = {
-    address: '0x' + '0'.repeat(40),
+    address: hexN(40),
     string: 'string',
     bool: true,
     // number will catch int, uint8, int256... etc
     number: new BN(1),
-    bytesN: n => '0x' + '0'.repeat(n * 2)
+    bytesN: n => hexN(n * 2)
   }
 
   this.mockReturnType = function(type, value) {

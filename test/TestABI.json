@@ -543,7 +543,7 @@
       "type": "function"
     },
     {
-      "constant": false,
+      "constant": true,
       "inputs": [],
       "name": "outputStructThing",
       "outputs": [
@@ -569,7 +569,7 @@
       "type": "function"
     },
     {
-      "constant": false,
+      "constant": true,
       "inputs": [],
       "name": "outputStructNested",
       "outputs": [
