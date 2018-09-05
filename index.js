@@ -223,6 +223,18 @@ const mockFunction = (item, fake) => {
 
   fn.mock = mock
 
+  fn.mockClear = function() {
+    mock.calls = []
+    mock.results = []
+    return this
+  }
+
+  fn.mockReset = function() {
+    mockReturnValue = undefined
+    mockReturnValues = []
+    return this
+  }
+
   fn.mockReturnValue = function(val) {
     mockReturnValue = val
     return this
@@ -240,18 +252,6 @@ const mockFunction = (item, fake) => {
 
   fn.mockRevertOnce = function() {
     mockRevertOnce++
-    return this
-  }
-
-  fn.mockClear = function() {
-    mock.calls = []
-    mock.results = []
-    return this
-  }
-
-  fn.mockReset = function() {
-    mockReturnValue = undefined
-    mockReturnValues = []
     return this
   }
 
@@ -276,14 +276,10 @@ function Mocktract(address, abi) {
     bytesN: n => hexN(n * 2)
   }
 
-  this.mockReturnType = function(type, value) {
-    mockReturnType[type] = value
-    return this
-  }
-
-  this.mockReturnTypeOnce = function(type, value) {
-    if (!mockReturnTypes[type]) mockReturnTypes[type] = []
-    mockReturnTypes[type].push(value)
+  this.mockClearAll = function() {
+    for (const fn of Object.values(this.functions)) {
+      fn.mockClear()
+    }
     return this
   }
 
@@ -298,6 +294,17 @@ function Mocktract(address, abi) {
     for (const fn of Object.values(this.functions)) {
       fn.mockReset()
     }
+    return this
+  }
+
+  this.mockReturnType = function(type, value) {
+    mockReturnType[type] = value
+    return this
+  }
+
+  this.mockReturnTypeOnce = function(type, value) {
+    if (!mockReturnTypes[type]) mockReturnTypes[type] = []
+    mockReturnTypes[type].push(value)
     return this
   }
 
