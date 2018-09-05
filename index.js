@@ -24,7 +24,7 @@ const regEx = {
 }
 
 const validators = {
-  isValid(val, input) {
+  check(val, input) {
     const jtype = typeof val
     let { type } = input
     let match
@@ -32,22 +32,48 @@ const validators = {
     // array types
     match = type.match(regEx.arr)
     if (match) {
+      const ogType = type
+      if (!Array.isArray(val)) {
+        throw `invalid ${type}`
+      }
+
       type = match[1] + (match[3] || '')
       const len = +match[2] || 0
-      if (!Array.isArray(val)) return false
-      if (len && val.length !== +len) return false
-      return val.every(a => this.isValid(a, { type }))
+
+      if (len && val.length !== len) {
+        throw `incorrect num elements, expected ${len}`
+      }
+
+      val.forEach((v, i) => {
+        try {
+          this.check(v, { ...input, type })
+        } catch (err) {
+          throw `invalid ${ogType} - elem ${i} not ${type}: ${err}`
+        }
+      })
+      return
     }
 
     // tuple types
     if (type === 'tuple') {
       const isArr = Array.isArray(val)
-      const numItems = isArr ? val.length : Object.keys(val).length
-      if (numItems !== input.components.length) return false
-      return input.components.every((c, i) => {
-        const v = isArr ? val[i] : val[c.name]
-        return this.isValid(v, c)
+      const vals = isArr ? val : Object.values(val)
+
+      if (isArr && val.length !== input.components.length) {
+        throw `struct incorrect num elements`
+      } else if (vals.length > input.components.length) {
+        throw `struct too many members`
+      }
+
+      vals.forEach((v, i) => {
+        const c = input.components[i]
+        try {
+          this.check(v, c)
+        } catch (err) {
+          throw `invalid struct ${input.name}: ${err}`
+        }
       })
+      return
     }
 
     // number types
@@ -55,61 +81,74 @@ const validators = {
     if (match) {
       const unsigned = !!match[1]
       const n = match[2]
-      return this.isIntN(val, n, unsigned)
+      this.checkIntN(val, n, unsigned)
+      return
     }
 
     // bytes types
     match = type.match(regEx.bytes)
     if (match) {
       const size = match[1]
-      return this.isBytesN(val, size)
+      this.checkBytesN(val, size)
+      return
     }
 
     // address type
     if (type === 'address') {
-      return this.isAddress(val)
+      this.checkAddress(val)
+      return
     }
 
     // bool type
     if (type === 'bool') {
-      if (!['boolean', 'number', 'string'].includes(jtype)) return false
-      return [0, 1].includes(+val)
+      if (
+        !['boolean', 'number', 'string'].includes(jtype) ||
+        ![0, 1].includes(+val)
+      ) {
+        throw `invalid bool`
+      }
+      return
     }
 
     // string type
     if (type === 'string') {
-      return jtype === 'string'
+      if (jtype !== 'string') {
+        throw `invalid string`
+      }
+      return
     }
 
-    return false
+    throw `unknown ABI type ${type}, please submit GitHub issue`
   },
 
-  isAddress(val) {
-    if (typeof val !== 'string') return false
-    return regEx.address.test(val)
+  checkAddress(val) {
+    if (typeof val !== 'string' || !regEx.address.test(val)) {
+      throw `invalid address`
+    }
   },
 
   // checks if bytes string
-  isBytesN(val, n) {
-    if (typeof val !== 'string') return false
+  checkBytesN(val, n) {
+    const invalid = `invalid bytes${n || ''}`
+    if (typeof val !== 'string') throw invalid
     const size = n ? n * 2 : ''
-    return new RegExp(`^0x[a-fA-F0-9]{1,${size}}$`).test(val)
+    if (!new RegExp(`^0x[a-fA-F0-9]{1,${size}}$`).test(val)) throw invalid
   },
 
   // checks if number is within int or uint boundaries
-  isIntN(val, n = 256, unsigned) {
+  checkIntN(val, n = 256, unsigned) {
     const jtype = typeof val
-    if (jtype !== 'string' && jtype !== 'number' && !BN.isBN(val)) return false
-    if (jtype === 'string' && !regEx.decOrHex.test(val)) return false
+    const invalid = `invalid ${unsigned ? 'u' : ''}int${n}`
+    if (jtype !== 'string' && jtype !== 'number' && !BN.isBN(val)) throw invalid
+    if (jtype === 'string' && !regEx.decOrHex.test(val)) throw invalid
 
     const num = new BN(val)
     const pow = new BN(unsigned ? n : n / 2)
     const max = new BN(2).pow(pow)
     const min = unsigned ? new BN(0) : max.mul(new BN(-1))
 
-    if (num.gte(max)) return false
-    if (num.lt(min)) return false
-    return true
+    if (num.gte(max)) throw `${invalid}: overflow`
+    if (num.lt(min)) throw `${invalid}: underflow`
   }
 }
 
@@ -127,7 +166,7 @@ const mockFunction = (item, fake) => {
     mock.calls.push(args)
 
     try {
-      // validate num arguments
+      // check num arguments
       const num = args.length
       const expectedNum = item.inputs.length
       if (num !== expectedNum) {
@@ -135,14 +174,16 @@ const mockFunction = (item, fake) => {
         throw `${item.name}: Invalid number of arguments. ${expectedMsg}`
       }
 
-      // validate arguments
+      // check arguments
       for (const i in args) {
         const arg = args[i]
         const input = item.inputs[i]
         const { name, type } = input
 
-        if (!validators.isValid(arg, input)) {
-          throw `${item.name}: Argument ${i} (${name}) expects ${type}`
+        try {
+          validators.check(arg, input, item.name, i)
+        } catch (err) {
+          throw `${item.name}: arg ${i} (${name}) ${err}`
         }
       }
 
@@ -268,7 +309,7 @@ function Mocktract(address, abi) {
     if (match) {
       type = match[1] + (match[3] || '')
       const len = +match[2] || 1
-      return [...Array(len)].map(() => fake({ type }))
+      return [...Array(len)].map(() => fake({ ...output, type }))
     }
 
     match = type.match(regEx.num)
