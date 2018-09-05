@@ -155,6 +155,8 @@ const validators = {
 const mockFunction = (item, fake) => {
   let mockReturnValue
   let mockReturnValues = []
+  let mockRevert = false
+  let mockRevertOnce = 0
 
   let mock = {
     calls: [],
@@ -178,13 +180,18 @@ const mockFunction = (item, fake) => {
       for (const i in args) {
         const arg = args[i]
         const input = item.inputs[i]
-        const { name, type } = input
+        const { name } = input
 
         try {
-          validators.check(arg, input, item.name, i)
+          validators.check(arg, input)
         } catch (err) {
           throw `${item.name}: arg ${i} (${name}) ${err}`
         }
+      }
+
+      if (mockRevert || mockRevertOnce) {
+        if (mockRevertOnce) mockRevertOnce--
+        throw Error('VM Exception while processing transaction: revert')
       }
 
       let output
@@ -223,6 +230,16 @@ const mockFunction = (item, fake) => {
 
   fn.mockReturnValueOnce = function(val) {
     mockReturnValues.push(val)
+    return this
+  }
+
+  fn.mockRevert = function() {
+    mockRevert = true
+    return this
+  }
+
+  fn.mockRevertOnce = function() {
+    mockRevertOnce++
     return this
   }
 

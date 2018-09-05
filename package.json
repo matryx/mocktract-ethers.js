@@ -1,5 +1,5 @@
 {
-  "name": "mocktract-ethers.js",
+  "name": "mocktract",
   "version": "1.0.0",
   "description": "Mock ethers.Contract for provided ABI",
   "main": "index.js",
@@ -28,6 +28,9 @@
     "jest-environment-node": "^23.4.0"
   },
   "jest": {
+    "roots": [
+      "<rootDir>/test/"
+    ],
     "testEnvironment": "./test/MocktractEnvironment.js",
     "verbose": true
   }
