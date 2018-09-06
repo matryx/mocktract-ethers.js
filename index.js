@@ -230,6 +230,7 @@ const mockFunction = (item, fake) => {
   }
 
   fn.mockReset = function() {
+    this.mockClear()
     mockReturnValue = undefined
     mockReturnValues = []
     return this
