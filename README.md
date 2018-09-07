@@ -1,6 +1,6 @@
 # mocktract-ethers.js
 
-A library for mocking ethers.js Contracts for unit testing. `mocktract` takes in an address and ABI, and builds out a mock contract that matches an `ethers.Contract`. Inspired by `jest.fn()`, `mocktract` adds many value mocking options like `fn.mockReturnValue(value)` or `contract.mockReturnType(type, value)`.
+A library for mocking ethers.js Contracts for unit testing. `mocktract` takes in an address and ABI, and builds out a mock contract that matches an `ethers.Contract`. Inspired by `jest.fn()`, `mocktract` adds many value mocking options like `fn.mockReturnValue(value)` or `contract.mockReturnType(type, value)`. This is for the Ethereum Smart Contract ethers.js framework.
 
 ## Getting Started
 
@@ -30,7 +30,7 @@ Now wherever the contract is used, `mocktract` can be used to mock return values
 
 ## Example Test With Truffle and Jest
 
-The folder `truffle-example` gives an example of a TodoList contract with Truffle, and how `mocktract` can be used for unit testing a node interface to the contract.
+The folder `truffle-example` gives an example of a TodoList ethereum smart contract with Truffle, and how `mocktract` can be used for unit testing a node interface to the contract.
 
 These are some excerpts from the example:
 
