@@ -4,7 +4,7 @@ A library for mocking ethers.js Contracts for unit testing. `mocktract` takes in
 
 ## Getting Started
 
-Install mocktract-ethers.js using `npm`:
+Install `mocktract` using `npm`:
 
 ```bash
 npm install --save-dev matryx/mocktract-ethers.js
